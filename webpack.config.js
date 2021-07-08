@@ -10,7 +10,8 @@ module.exports ={
     entry:'./src/index.js',
     output:{
         path:path.resolve(__dirname,'build'),
-        filename:'js/[name].js'
+        filename:'js/[name].[contenthash].js',
+        clean: true
     },
     mode:'production',
     devtool:"source-map",
@@ -41,8 +42,13 @@ module.exports ={
             {
                 test:/\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?[\=\.a-z0-9]+)?$/,
                 use:{
-                    loader:'url-loader'
-                },
+                    loader: "file-loader",
+                    options:{
+                        name:'[name].[ext]',
+                        outputPath: '/files/',
+                        publicPath:'/application/app/files'
+                    }
+                }
             }
         ]
     },
@@ -55,7 +61,7 @@ module.exports ={
             inject:'body'
         }),
         new MiniCssExtractPlugin({
-            filename:'styles/[name].css'
+            filename:'styles/[name].[contenthash].css'
         }),
         new webpack.ProvidePlugin({
             "React":"react"
@@ -72,6 +78,7 @@ module.exports ={
         }
     },
     optimization:{
+        minimize:true,
         runtimeChunk:{
             name:(entrypoint)=>`runtimechunk~${entrypoint.name}`
         },

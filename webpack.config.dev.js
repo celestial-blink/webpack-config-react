@@ -7,10 +7,8 @@ module.exports = {
     entry:'./src/index.js',
     devtool:"eval-source-map",
     output: {
-        // filename: 'bundle.js',
-        // path: path.resolve(__dirname, 'dist'),
         path:path.resolve(__dirname,'build'),
-        filename:'js/[name].js',
+        filename:'js/[name].[contenthash].js',
         clean: true,
     },
     module: {
@@ -38,7 +36,12 @@ module.exports = {
             {
                 test:/\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?[\=\.a-z0-9]+)?$/,
                 use:{
-                    loader:'url-loader',
+                    loader: "file-loader",
+                    options:{
+                        name:'[name].[ext]',
+                        outputPath: '/files/',
+                        publicPath:'/application/app/files'
+                    }
                 }
             }
         ]
@@ -66,8 +69,11 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
+    optimization: {
+        runtimeChunk: true,
+      },
     devServer:{
-        contentBase:path.join(__dirname,'dist'),
+        contentBase:path.join(__dirname,'build'),
         host:'127.0.0.2',
         compress: true,
         historyApiFallback: true,
@@ -77,6 +83,7 @@ module.exports = {
             '/application':'http://127.0.0.1:80',
             secure:false,
             changeOrigin:true
-        }
+        },
+        disableHostCheck: true
     }
 };
