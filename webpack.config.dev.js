@@ -2,6 +2,7 @@ const path=require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin=require('html-webpack-plugin');
 
+/**@type {import('webpack').Configuration} */
 
 module.exports = {
     entry:'./src/index.js',
@@ -39,8 +40,8 @@ module.exports = {
                     loader: "file-loader",
                     options:{
                         name:'[name].[ext]',
-                        outputPath: '/files/',
-                        publicPath:'/application/app/files'
+                        outputPath: 'assets',
+                        publicPath:'assets'
                     }
                 }
             }
@@ -73,7 +74,9 @@ module.exports = {
         runtimeChunk: true,
       },
     devServer:{
-        contentBase:path.join(__dirname,'build'),
+        static:{
+            directory: path.join(__dirname, 'build'),
+        },
         host:'127.0.0.2',
         compress: true,
         historyApiFallback: true,
