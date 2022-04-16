@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2021",
+        "paths": {
+            "@components": ["./src/components/"],
+            "@contexts": ["./src/contexts/"],
+            "@images": ["./src/images/"],
+            "@configutarions": ["./src/config/"],
+            "@hooks": ["./src/hooks/"],
+            "@helpers": ["./src/helpers/"],
+            "@views": ["./src/views/"],
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
