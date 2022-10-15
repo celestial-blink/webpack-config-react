@@ -70,7 +70,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'js/[name].[contenthash].js',
-        clean: true
+        clean: true,
+        publicPath: "/"
     },
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'eval-source-map',
@@ -98,7 +99,7 @@ module.exports = {
                 test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?[\=\.a-z0-9]+)?$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/[name].[ext]'
+                    filename: '/assets/[name].[ext]'
                 }
             }
         ]
